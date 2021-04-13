@@ -19,14 +19,16 @@ fileConfig(config.config_file_name)
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-from app.db.tables import metadata
-target_metadata = metadata
+#target_metadata = None
+config.set_main_option("sqlalchemy.url", settings.database_url)
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
-config.set_main_option("sqlalchemy.url", settings.database_url)
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
+
+from app.db.tables import Base
+target_metadata = Base.metadata
 
 
 def run_migrations_offline():

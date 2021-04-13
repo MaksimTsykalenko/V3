@@ -1,21 +1,22 @@
-from sqlalchemy import MetaData
-from sqlalchemy import Table, Column, Integer, String, Text, DateTime, BigInteger, Boolean
-from sqlalchemy import sql
+import sqlalchemy as sa
+from sqlalchemy.ext.declarative import declarative_base
 
-metadata = MetaData()
-Chanel = Table('chanels',
-               metadata,
-               Column('id', Integer, primary_key=True),
-               Column('title', String(256)),
-               Column('icon', String(256)),
-               Column('disabled', Boolean, server_default=sql.expression.false())
-               )
-Show = Table('shows',
-             metadata,
-             Column('id', BigInteger, primary_key=True),
-             Column('title', String(256)),
-             Column('description', Text),
-             Column('start_t', DateTime),
-             Column('end_t', DateTime),
-             Column('chanel_id', Integer)
-             )
+
+Base = declarative_base()
+
+class Chanel(Base):
+    __tablename__='chanels'
+    id = sa.Column(sa.Integer,primary_key=True)
+    title = sa.Column(sa.String(256))
+    icon = sa.Column(sa.String(256))
+    disabled = sa.Column(sa.Boolean, server_default=sa.sql.expression.false())
+
+
+class Show(Base):
+    __tablename__='shows'
+    id = sa.Column(sa.BigInteger, primary_key=True)
+    title = sa.Column(sa.String(256))
+    description = sa.Column(sa.Text)
+    start_t = sa.Column(sa.DateTime)
+    end_t = sa.Column(sa.DateTime)
+    chanel_id = sa.Column(sa.Integer)

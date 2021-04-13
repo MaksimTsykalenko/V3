@@ -17,11 +17,12 @@ class ShowsService:
                  end_t: datetime
                  ) -> list[tables.Chanel]:
         query = self.session.query(tables.Show)
-        query = query.filter(tables.Show.c.chanel_id == chanel_id)
+        query = query.filter(tables.Show.chanel_id == chanel_id)
+        print(type(query))
         if start_t :
-            query = query.filter(tables.Show.c.start_t >= start_t)
+            query = query.filter(tables.Show.start_t >= start_t)
         if end_t :
-            query = query.filter(tables.Show.c.end_t >= end_t)
+            query = query.filter(tables.Show.end_t <= end_t)
 
         return query.all()
 
